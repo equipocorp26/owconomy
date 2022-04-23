@@ -57,12 +57,7 @@
         </div>
         <div class="col-12">
             @forelse ($movements_month as $item)
-                <div class="card my-3 rounded-0 border-start border-0 border-5 border-primary bg-light">
-                    <div class="card-body">
-                        Dia: {{$item->created_at->format('d')}} - {{$item->title}}
-                        <span class="float-end"><x-badge-amount amount="{{$item->amount}}"></x-badge-amount></span>
-                    </div>
-                </div>
+                <x-item-list date="{{$item->created_at->format('d')}}" title="{{$item->title}}" amount="{{$item->amount}}"></x-item-list>
             @empty
                 <p class="text-center p-4 text-muted">No hay movimientos este mes</p>
             @endforelse

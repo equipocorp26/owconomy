@@ -32,8 +32,8 @@ class BalanceController extends Controller
         $movements     = $balance->movements->count();
         $reservations  = $balance->reservations->count();
         /* balance month */
-        $movements_month = $balance->monthlyMovements(date('m'));
-        $balance_month = $movements_month->where('amount','>',0)->sum('amount') + $movements_month->where('amount','<',0)->sum('amount');
+        $movements_month = $balance->monthlyMovements(date('m'))->get('amount');
+        /* return  */$balance_month = $movements_month->where('amount','<',0)->sum('amount') + $movements_month->where('amount','>',0)->sum('amount') ;
         /* recordings month */
         $movements_month = $balance->monthlyMovements(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
         //return $balance;
