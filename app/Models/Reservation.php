@@ -13,4 +13,9 @@ class Reservation extends Model
         'title',
         'amount'
     ];
+    /* RELACIONES */
+    public function balance()
+    {
+        return $this->belongsTo(Balance::class);
+    }
 }
