@@ -36,4 +36,8 @@ class Balance extends Model
     {
         return $this->hasMany(Movement::class)->whereMonth('created_at',$month);
     }
+    public function monthlyReservations($month)
+    {
+        return $this->hasMany(Reservation::class)->whereMonth('created_at',$month);
+    }
 }

@@ -16,7 +16,7 @@ class BalanceController extends Controller
 
     public function create()
     {
-        //
+        return view('balances.create');
     }
 
     public function store(Request $request)
@@ -33,11 +33,12 @@ class BalanceController extends Controller
         $reservations  = $balance->reservations->count();
         /* balance month */
         $movements_month = $balance->monthlyMovements(date('m'))->get('amount');
-        /* return  */$balance_month = $movements_month->where('amount','<',0)->sum('amount') + $movements_month->where('amount','>',0)->sum('amount') ;
+        $balance_month = $movements_month->where('amount','<',0)->sum('amount') + $movements_month->where('amount','>',0)->sum('amount') ;
         /* recordings month */
-        $movements_month = $balance->monthlyMovements(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
+        $movements_month    = $balance->monthlyMovements(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
+        $reservations_month = $balance->monthlyReservations(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
         //return $balance;
-        return view('balances.show',compact('balance','movements','reservations','balance_month','movements_month'));
+        return view('balances.show',compact('balance','movements','reservations','balance_month','movements_month','reservations_month'));
     }
 
     /**

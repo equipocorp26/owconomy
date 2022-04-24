@@ -62,7 +62,20 @@
                 <p class="text-center p-4 text-muted">No hay movimientos este mes</p>
             @endforelse
             @if ($movements_month->count())
-                <button class="btn btn-primary float-end">Ver Todos los movimientos</button>
+                <button class="btn btn-primary float-end my-2">Movimientos</button>
+            @endif
+        </div>
+        <div class="col-12 border-top pt-5">
+            <h3>Reservaciones Recientes este mes</h3>
+        </div>
+        <div class="col-12">
+            @forelse ($reservations_month as $item)
+                <x-item-list date="{{$item->created_at->format('d')}}" title="{{$item->title}}" amount="{{$item->amount}}"></x-item-list>
+            @empty
+                <p class="text-center p-4 text-muted">No hay reservaciones este mes</p>
+            @endforelse
+            @if ($movements_month->count())
+                <button class="btn btn-primary float-end my-2">Reservaciones</button>
             @endif
         </div>
     </div>

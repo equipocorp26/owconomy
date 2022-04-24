@@ -11,7 +11,7 @@ class ReservationFactory extends Factory
     {
         return [
             'title'   => $this->faker->sentence(3),
-            'amount'  => $this->faker->numberBetween(-1000,1000),
+            'amount'  => $this->faker->numberBetween(-500,-1),
             'balance_id' => $this->faker->numberBetween( 1 , Balance::count() ),
         ];
     }
