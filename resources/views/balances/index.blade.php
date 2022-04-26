@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-6">
                         <p class="fs-5">
-                            {{ $item->title }} 
+                            {{ $item->title }}
                         </p>
                     </div>
                     <div class="col-6 text-end ">
@@ -20,7 +20,7 @@
                         @endif
                     </div>
                     <div class="col-6 mt-5">
-                        <a class="btn border btn-sm py-1 border-light btn-link" href="" title="Movimientos">
+                        <a class="btn border btn-sm py-1 border-light btn-link" href="{{ route('movements.index',$item) }}" title="Movimientos">
                             <img src="{{ asset('icons/transactions.png') }}" alt="transactions icons owconomy">
                         </a>
                         <a class="btn border btn-sm py-1 border-light btn-link" href="" title="Reservaciones">

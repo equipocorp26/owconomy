@@ -102,6 +102,7 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <a href="{{ route('balances.index') }}">Mis Balances</a>
+                        <hr>
                         <a href="{{ route('balances.create') }}">Nuevo Balance</a>
                     </div>
                     <div class="col-md-6 col-lg-8">
