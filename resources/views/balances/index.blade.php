@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-6">
                         <p class="fs-5">
-                            {{ $item->title }}
+                            {{ $item->title }} 
                         </p>
                     </div>
                     <div class="col-6 text-end ">

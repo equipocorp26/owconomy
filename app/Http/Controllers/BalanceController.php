@@ -61,6 +61,7 @@ class BalanceController extends Controller
     public function destroy(Balance $balance)
     {
         $this->authorize('owner',$balance);
-        //
+        $balance->delete();
+        return redirect()->route('balances.index')->with('message','Balance '.$balance->title.' eliminado con exito');
     }
 }
