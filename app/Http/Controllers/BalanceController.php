@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BalanceRequest;
+use App\Http\Requests\BalanceResource;
 use App\Models\Balance;
-use App\Models\Movement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BalanceController extends Controller
 {
     public function index()
     {
-        $items = Balance::where('user_id',1)->orderBy('updated_at','DESC')->with('lastMovement')->get();
+        $items = Balance::where('user_id',Auth::id())->orderBy('updated_at','DESC')->with('lastMovement')->get();
         return view('balances.index',compact('items'));
     }
 
@@ -19,13 +21,15 @@ class BalanceController extends Controller
         return view('balances.create');
     }
 
-    public function store(Request $request)
+    public function store(BalanceRequest $request)
     {
-        //
+        $balance = Auth::user()->balances()->create($request->only('amount','title'));
+        return redirect()->route('balances.show',$balance)->with('message','Balance creado con exito');
     }
 
     public function show(Balance $balance)
     {
+        $this->authorize('owner',$balance);
         /* load user balance */
         $balance->load('user');
         /* counters */
@@ -41,37 +45,22 @@ class BalanceController extends Controller
         return view('balances.show',compact('balance','movements','reservations','balance_month','movements_month','reservations_month'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Balance $balance)
     {
-        //
+        $this->authorize('owner',$balance);
+        return view('balances.edit',compact('balance'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(BalanceRequest $request, Balance $balance)
     {
-        //
+        $this->authorize('owner',$balance);
+        $balance->update($request->only('title'));
+        return redirect()->route('balances.show',$balance)->with('message','Balance actualizado con exito');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Balance $balance)
     {
+        $this->authorize('owner',$balance);
         //
     }
 }

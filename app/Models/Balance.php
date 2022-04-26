@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +27,13 @@ class Balance extends Model
     public function movements()
     {
         return $this->hasMany(Movement::class);
+    }
+    /* MUTATORS */
+    protected function amount(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => $value != null ? $value : 0 ,
+        );
     }
     /* FUNCIONES */
     public function lastMovement()

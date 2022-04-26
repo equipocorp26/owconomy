@@ -4,7 +4,7 @@
     <div class="row bg-white rounded-medium p-4">
         <div class="col-12 text-center">
             <p class="fs-3">
-                Hola, {{$balance->user->name}}
+                Hola, {{$balance->user->name}} <a href="{{ route('balances.edit', $balance) }}" class="btn btn-primary btn-sm"><img src="{{ asset('icons/edit.png') }}" alt="edit icon owconomy"></a>
             </p>
             <p class="fs-5">Este es el resumen de tu balance <span class="fw-bold">{{$balance->title}}</span></p>
         </div>

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('balances', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->double('amount')->default(0);
+            $table->double('amount')->nullable();
             $table->foreignId('user_id')->references('id')->on('users')->constrained('users','id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
