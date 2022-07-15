@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BalanceRequest extends FormRequest
+class MovementRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,7 +15,8 @@ class BalanceRequest extends FormRequest
     {
         return [
             'title'  => 'required|between:3,255',
-            'amount' => 'nullable|numeric'
+            'amount' => 'nullable|numeric',
+            'detail' => 'nullable|max:255',
         ];
     }
 }

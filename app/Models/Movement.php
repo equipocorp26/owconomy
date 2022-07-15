@@ -11,7 +11,8 @@ class Movement extends Model
     protected $fillable = [
         'balance_id',
         'title',
-        'amount'
+        'amount',
+        'detail',
     ];
     /* RELACIONES */
     public function balance()

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MovementFilterRequest;
+use App\Http\Requests\MovementRequest;
 use App\Models\Balance;
-use Illuminate\Http\Request;
+use App\Models\Movement;
 use Illuminate\Support\Facades\Auth;
 
 class MovementController extends Controller
 {
     public function index(MovementFilterRequest $request,Balance $balance)
     {
+        $this->authorize('owner',$balance);
         $items = $balance->movements();
         /* FILTRO DE FECHAS */
         if ($request->this_month) {
@@ -30,31 +32,24 @@ class MovementController extends Controller
 
     public function create(Balance $balance)
     {
+        $this->authorize('owner',$balance);
         return view('movements.create',compact('balance'));
     }
 
-    public function store(BalanceRequest $request)
+    public function store(MovementRequest $request,Balance $balance)
     {
-        $balance = Auth::user()->balances()->create($request->only('amount','title'));
-        return redirect()->route('balances.show',$balance)->with('message','Balance creado con exito');
+        $this->authorize('owner',$balance);
+        $balance->movements()->create($request->only('amount','title','detail'));
+        $balance->update(['amount' => $balance->amount + $request->amount]);
+        return redirect()->route('movements.index',$balance)->with('message','Movimiento guardado con exito');
     }
 
-    public function show(Balance $balance)
+    public function show(Balance $balance,Movement $movement)
     {
         $this->authorize('owner',$balance);
         /* load user balance */
         $balance->load('user');
-        /* counters */
-        $movements     = $balance->movements->count();
-        $reservations  = $balance->reservations->count();
-        /* balance month */
-        $movements_month = $balance->monthlyMovements(date('m'))->get('amount');
-        $balance_month = $movements_month->where('amount','<',0)->sum('amount') + $movements_month->where('amount','>',0)->sum('amount') ;
-        /* recordings month */
-        $movements_month    = $balance->monthlyMovements(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
-        $reservations_month = $balance->monthlyReservations(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
-        //return $balance;
-        return view('balances.show',compact('balance','movements','reservations','balance_month','movements_month','reservations_month'));
+        return view('movements.show',compact('balance','movement'));
     }
 
     public function edit(Balance $balance)
@@ -66,14 +61,16 @@ class MovementController extends Controller
     public function update(BalanceRequest $request, Balance $balance)
     {
         $this->authorize('owner',$balance);
-        $balance->update($request->only('title'));
+        $balance->update($request->only('title','detail'));
+        $balance->update(['amount' => $balance->amount + $request->amount]);
         return redirect()->route('balances.show',$balance)->with('message','Balance actualizado con exito');
     }
 
-    public function destroy(Balance $balance)
+    public function destroy(Balance $balance,Movement $movement)
     {
         $this->authorize('owner',$balance);
-        $balance->delete();
-        return redirect()->route('balances.index')->with('message','Balance '.$balance->title.' eliminado con exito');
+        $movement->delete();
+        $balance->update(['amount' => $balance->amount - $movement->amount]);
+        return redirect()->route('movements.index',$balance)->with('message','Balance '.$movement->title.' eliminado con exito');
     }
 }

@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->double('amount')->default(0);
+            $table->string('detail')->nullable();
             $table->foreignId('balance_id')->references('id')->on('balances')->constrained('balances','id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

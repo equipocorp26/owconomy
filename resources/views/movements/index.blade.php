@@ -7,8 +7,8 @@
             <p class="fs-3">
                 Mis Movimientos
             </p>
-            <p class="fs-5">Estos son los movimientos que tienes en tu balance <span
-                    class="fw-bold">{{ $balance->title }}</span></p>
+            <p class="fs-5">Estos son los movimientos que tienes en tu balance <a
+                    class="fw-bold" href="{{ route('balances.show', $balance) }}">{{ $balance->title }}</a></p>
         </div>
         <div class="col-12">
             <form action="{{ route('movements.index', ['balance' => $balance]) }}" class="row">
@@ -37,8 +37,8 @@
                         <select required class="form-select" id="floatingSelect" name="type"
                             aria-label="Tipo de movimientos">
                             <option {{ request('type', null) === null ? 'selected' : '' }} value="null" selected>Todos</option>
-                            <option {{ request('type', null) === 1 ? 'selected' : '' }} value="1">Entradas</option>
-                            <option {{ request('type', null) === 0 ? 'selected' : '' }} value="0">Salidas</option>
+                            <option {{ request('type', null) === '1' ? 'selected' : '' }} value="1">Entradas</option>
+                            <option {{ request('type', null) === '0' ? 'selected' : '' }} value="0">Salidas</option>
                         </select>
                         <label for="floatingSelect">Tipo</label>
                     </div>
@@ -74,8 +74,8 @@
         </div>
         <div class="col-12">
             @forelse ($items as $item)
-                <x-item-list date="{{ $item->created_at->format('d') }}" title="{{ $item->title }}"
-                    amount="{{ $item->amount }}"></x-item-list>
+                <x-item-list balance="{{$balance->id}}" movement="{{$item->id}}" date="{{ $item->created_at->format('d') }}" title="{{ $item->title }}"
+                    amount="{{ $item->amount }}" delete="true"></x-item-list>
             @empty
                 <p class="text-center p-4 text-muted">No se encontraron movimientos</p>
             @endforelse

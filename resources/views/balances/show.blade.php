@@ -59,13 +59,18 @@
         </div>
         <div class="col-12">
             @forelse ($movements_month as $item)
-                <x-item-list date="{{ $item->created_at->format('d') }}" title="{{ $item->title }}"
+                <x-item-list balance="{{$balance->id}}" movement="{{$item->id}}" date="{{ $item->created_at->format('d') }}" title="{{ $item->title }}"
                     amount="{{ $item->amount }}"></x-item-list>
             @empty
-                <p class="text-center p-4 text-muted">No hay movimientos este mes</p>
+                    <div class="text-center">
+                        <p class="pt-4 text-muted">
+                            No hay movimientos este mes
+                        </p>
+                        <a class="btn mb-4 btn-primary" href="{{ route('movements.create', $balance) }}">Agregar movimiento</a>
+                    </div>
             @endforelse
             @if ($movements_month->count())
-                <button class="btn btn-primary float-end my-2">Movimientos</button>
+                <a href="{{ route('movements.index', $balance) }}" class="btn btn-primary float-end my-2">Movimientos</a>
             @endif
         </div>
         <div class="col-12 border-top pt-5">
@@ -73,13 +78,13 @@
         </div>
         <div class="col-12">
             @forelse ($reservations_month as $item)
-                <x-item-list date="{{ $item->created_at->format('d') }}" title="{{ $item->title }}"
-                    amount="{{ $item->amount }}"></x-item-list>
+                <x-item-list balance="{{$balance->id}}" movement="{{$item->id}}" date="{{ $item->created_at->format('d') }}" title="{{ $item->title }}"
+                    amount="{{ $item->amount }}" reservation="true"></x-item-list>
             @empty
                 <p class="text-center p-4 text-muted">No hay reservaciones este mes</p>
             @endforelse
             @if ($movements_month->count())
-                <button class="btn btn-primary float-end my-2">Reservaciones</button>
+                <a href="{{ route('reservations.index', $balance) }}" class="btn btn-primary float-end my-2">Reservaciones</a>
             @endif
         </div>
         <div class="col-12 border-top pt-5">

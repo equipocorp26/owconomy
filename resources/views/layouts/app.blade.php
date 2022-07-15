@@ -101,9 +101,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
-                        <a href="{{ route('balances.index') }}">Mis Balances</a>
-                        <hr>
-                        <a href="{{ route('balances.create') }}">Nuevo Balance</a>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-12">
+                                    <a class="d-grid gap-2 my-2 btn btn-lg {{url()->current() == route('balances.index') ? 'btn-primary' : 'btn-outline-primary'}} " href="{{ route('balances.index') }}">Mis Balances</a>
+                                </div>
+                                <div class="col-12">
+                                    <a class="d-grid gap-2 my-2 btn btn-lg {{url()->current() == route('balances.create') ? 'btn-primary' : 'btn-outline-primary'}} " href="{{ route('balances.create') }}">Nuevo Balance</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6 col-lg-8">
                         @if (session('message'))

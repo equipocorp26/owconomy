@@ -23,7 +23,7 @@
                         <a class="btn border btn-sm py-1 border-light btn-link" href="{{ route('movements.index',$item) }}" title="Movimientos">
                             <img src="{{ asset('icons/transactions.png') }}" alt="transactions icons owconomy">
                         </a>
-                        <a class="btn border btn-sm py-1 border-light btn-link" href="" title="Reservaciones">
+                        <a class="btn border btn-sm py-1 border-light btn-link" href="{{ route('reservations.index',$item) }}" title="Reservaciones">
                             <img src="{{ asset('icons/reservations.png') }}" alt="transactions icons owconomy">
                         </a>
                         <a class="btn border btn-sm py-1 border-light btn-link" href="{{ route('balances.show', $item) }}"
@@ -32,8 +32,8 @@
                         </a>
                     </div>
                     <div class="col-6 mt-5 text-end">
-                        <a class="btn border btn-sm py-1 border-light btn-link" href="" title="Nueva transaccion">
-                            <img src="{{ asset('icons/transaction.png') }}" alt="transactions icons owconomy">
+                        <a class="btn border btn-sm py-1 border-light btn-link" href="{{ route('movements.create', $item) }}" title="Nueva transaccion">
+                            <img src="{{ asset('icons/plus.png') }}" alt="transactions icons owconomy">
                         </a>
                     </div>
                 </div>
