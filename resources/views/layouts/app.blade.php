@@ -97,22 +97,7 @@
                     </div>
                 </div>
             </nav>
-            <main class="py-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            @if (session('message'))
-                                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    {{ session('message') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
-                            @yield('content')
-                        </div>
-                    </div>
-                </div>
-            </main>
+            @yield('content')
         @else
             @yield('content')
         @endauth

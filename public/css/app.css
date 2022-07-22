@@ -11286,3 +11286,28 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.bg-responsive-cover {
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-size: cover;
+}
+
+.bg-responsive-contain {
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-size: contain;
+}
+
+.bg-semi-transparent {
+  background-color: rgba(24, 85, 197, 0.6274509804);
+}
+
+/* .btn{
+    border-radius: 1rem!important;
+    border: 0px solid #ced4da!important;
+}
+.form-control{
+    font-size: 1.1rem!important;
+    border: 0px solid #ced4da!important;
+    border-radius: 1rem!important;
+} */

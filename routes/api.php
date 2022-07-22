@@ -5,7 +5,7 @@ use App\Http\Controllers\API\ApiLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('balance',[ApiBalanceController::class,'index']);
+Route::get('balances',[ApiBalanceController::class,'index']);
 Route::middleware(['auth'])->group(function () {
 });
 
