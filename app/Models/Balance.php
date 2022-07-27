@@ -13,12 +13,18 @@ class Balance extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'amount'
+        'amount',
+        'background_url',
+        'currency_id'
     ];
-    /* RELACIONES */
+    /* RELATIONS */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
     public function reservations()
     {
@@ -35,7 +41,7 @@ class Balance extends Model
             set: fn ($value) => $value != null ? $value : 0 ,
         );
     }
-    /* FUNCIONES */
+    /* FUNCTIONS */
     public function lastMovement()
     {
         return $this->hasOne(Movement::class)->latest();

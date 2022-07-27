@@ -1,15 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row bg-white rounded-medium p-4">
-        <div class="col-12 text-center">
-            <p class="fs-3">
-                Hola, {{ $balance->user->name }} <a href="{{ route('balances.edit', $balance) }}"
-                    class="btn btn-primary btn-sm"><img src="{{ asset('icons/edit.png') }}" alt="edit icon owconomy"></a>
-            </p>
-            <p class="fs-5">Este es el resumen de tu balance <span
-                    class="fw-bold">{{ $balance->title }}</span></p>
+    <balances-show-component
+        prop_balance_id="{{Crypt::encrypt($balance->id)}}"
+    ></balances-show-component>
+    {{-- <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="fs-3">
+                    Hola, BALANCE <a href="#"
+                        class="btn btn-primary btn-sm"><img src="{{ asset('icons/edit.png') }}" alt="edit icon owconomy"></a>
+                </p>
+                <p class="fs-5">Este es el resumen de tu balance <span
+                        class="fw-bold">TITULO</span></p>
+            </div>
         </div>
+    </div>
+    <div class="row bg-white rounded-medium p-4">
         <div class="col-6 col-lg-3 text-center p-2">
             <div class="card border-0">
                 <div class="card-body">
@@ -58,17 +65,7 @@
             <h3>Movimientos recientes este mes</h3>
         </div>
         <div class="col-12">
-            @forelse ($movements_month as $item)
-                <x-item-list balance="{{$balance->id}}" movement="{{$item->id}}" date="{{ $item->created_at->format('d') }}" title="{{ $item->title }}"
-                    amount="{{ $item->amount }}"></x-item-list>
-            @empty
-                    <div class="text-center">
-                        <p class="pt-4 text-muted">
-                            No hay movimientos este mes
-                        </p>
-                        <a class="btn mb-4 btn-primary" href="{{ route('movements.create', $balance) }}">Agregar movimiento</a>
-                    </div>
-            @endforelse
+            <balances-show-component prop_user="{{ Crypt::encrypt(Auth::id()) }}"></balances-show-component>
             @if ($movements_month->count())
                 <a href="{{ route('movements.index', $balance) }}" class="btn btn-primary float-end my-2">Movimientos</a>
             @endif
@@ -109,5 +106,5 @@
             </button>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection

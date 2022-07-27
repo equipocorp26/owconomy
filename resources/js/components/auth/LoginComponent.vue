@@ -31,7 +31,7 @@
         },
         data: function () {
             return {
-                base_url: window.location.origin,
+                base_url: this.$root.base_url,
                 login: {
                     email: '',
                     password: '',

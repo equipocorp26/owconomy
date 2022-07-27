@@ -7,6 +7,7 @@ use App\Http\Requests\BalanceResource;
 use App\Models\Balance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class BalanceController extends Controller
 {
@@ -27,22 +28,28 @@ class BalanceController extends Controller
         return redirect()->route('balances.show',$balance)->with('message','Balance creado con exito');
     }
 
-    public function show(Balance $balance)
+    public function show($balance)
     {
+        /* Desencrypt the token */
+        try {
+            $balance = Balance::findOrFail(Crypt::decrypt($balance));
+        } catch (\Throwable $th) {
+            abort(404);
+        }
         $this->authorize('owner',$balance);
         /* load user balance */
-        $balance->load('user');
+        /* $balance->load('user'); */
         /* counters */
-        $movements     = $balance->movements->count();
-        $reservations  = $balance->reservations->count();
+        /* $movements     = $balance->movements->count();
+        $reservations  = $balance->reservations->count(); */
         /* balance month */
-        $movements_month = $balance->monthlyMovements(date('m'))->get('amount');
-        $balance_month = $movements_month->where('amount','<',0)->sum('amount') + $movements_month->where('amount','>',0)->sum('amount') ;
+        /* $movements_month = $balance->monthlyMovements(date('m'))->get('amount');
+        $balance_month = $movements_month->where('amount','<',0)->sum('amount') + $movements_month->where('amount','>',0)->sum('amount') ; */
         /* recordings month */
-        $movements_month    = $balance->monthlyMovements(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
-        $reservations_month = $balance->monthlyReservations(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
+        /* $movements_month    = $balance->monthlyMovements(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
+        $reservations_month = $balance->monthlyReservations(date('m'))->orderBy('created_at','DESC')->limit(5)->get(); */
         //return $balance;
-        return view('balances.show',compact('balance','movements','reservations','balance_month','movements_month','reservations_month'));
+        return view('balances.show',compact('balance'));
     }
 
     public function edit(Balance $balance)

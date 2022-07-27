@@ -10,9 +10,11 @@ class Movement extends Model
     use HasFactory;
     protected $fillable = [
         'balance_id',
+        'date',
         'title',
         'amount',
         'detail',
+        'reference'
     ];
     /* RELACIONES */
     public function balance()

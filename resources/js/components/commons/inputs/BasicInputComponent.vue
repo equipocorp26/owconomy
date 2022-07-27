@@ -58,7 +58,6 @@
         },
         mounted() {
             console.log("Component Basic Input")
-            console.log(this.$props)
         },
         data: function () {
             return {

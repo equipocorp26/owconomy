@@ -10,25 +10,30 @@
 .bg-responsive-cover
 {
     background-repeat: no-repeat;
-    background-position: 100% 100%;
+    background-position: 100%;
     background-size: cover
 }
 .bg-responsive-contain
 {
     background-repeat: no-repeat;
-    background-position: 100% 100%;
+    background-position: 100%;
     background-size: contain
 }
 .bg-semi-transparent
 {
     background-color: #1855c5a0
 }
-/* .btn{
-    border-radius: 1rem!important;
-    border: 0px solid #ced4da!important;
+.box-amount-last-movement
+{
+    min-height: 82px
 }
-.form-control{
-    font-size: 1.1rem!important;
-    border: 0px solid #ced4da!important;
-    border-radius: 1rem!important;
-} */
+.preview-background-card
+{
+    height: 150px;
+}
+.btn-edit-header
+{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

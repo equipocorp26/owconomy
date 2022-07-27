@@ -39,9 +39,12 @@
 </head>
 
 <body>
+    <script>
+        window.token_user = {!! json_encode( Auth::id() ? Crypt::encrypt( Auth::id() ) : null ) !!}
+    </script>
     <div id="app">
         @auth
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-5">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}

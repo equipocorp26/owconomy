@@ -10,9 +10,11 @@ return new class extends Migration
     {
         Schema::create('balances', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->double('amount')->nullable();
             $table->foreignId('user_id')->references('id')->on('users')->constrained('users','id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('currency_id')->references('id')->on('currencies')->constrained('currencies','id')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('title');
+            $table->double('amount')->default(0);
+            $table->string('background_url')->default('/images/bg-cards/0.jpg');
             $table->timestamps();
         });
     }
