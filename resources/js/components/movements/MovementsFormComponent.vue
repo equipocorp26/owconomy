@@ -27,7 +27,7 @@
             <div class="col-12 col-md-4 my-2">
                 <div class="form-group">
                     <label>Monto</label>
-                    <input type="number" class="form-control" v-model="movement.amount" placeholder="10" step=".01">
+                    <input type="number" class="form-control" v-model="movement.amount" placeholder="10" step=".01" required>
                     <small class="text-danger"></small>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="col-12 my-2">
                 <div class="form-group">
                     <label>Comentario <small>(Opcional)</small></label>
-                    <input type="text" class="form-control" v-model="movement.detail" placeholder="un comentario extra" required
+                    <input type="text" class="form-control" v-model="movement.detail" placeholder="un comentario extra"
                         minlength="3" maxlength="180">
                     <small class="text-danger"></small>
                 </div>
@@ -81,7 +81,8 @@ export default {
                 date: null,
                 detail: null,
                 reference:null,
-                type:'+'
+                type:'+',
+                balance_id:null
             }
         }
     },
@@ -126,12 +127,13 @@ export default {
         clearData() {
             this.movement = {
                 id: null,
+                amount:null,
                 title: '',
                 date: null,
                 detail: null,
-                type:'+',
                 reference:null,
-                amount:null
+                type:'+',
+                balance_id:null
             }
         }
     }

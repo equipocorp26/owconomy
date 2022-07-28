@@ -14,7 +14,7 @@ class ApiBalanceResource extends JsonResource
             "title"              => $this->title,
             "amount"             => $this->amount,
             "currency"           => $this->currency->symbol,
-            "background"         => asset($this->background_url),
+            "background"         => $this->background_url,
             "last_movement"      => $this->lastMovement ? $this->lastMovement->amount : null,
             "last_movement_date" => $this->lastMovement ? $this->lastMovement->created_at->format('d-m-Y') : null,
         ];

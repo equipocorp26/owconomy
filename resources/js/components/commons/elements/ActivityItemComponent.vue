@@ -7,7 +7,7 @@
             <span>
                 {{ prop_date }} - {{ prop_title }}
             </span>
-            <a href="#" class="btn btn-sm btn-primary float-end">
+            <a href="#" class="btn btn-sm btn-primary float-end" @click="$emit('clickButtonShow',true)">
                 <img :src="$root.base_url + '/icons/visibility.png'" alt="icon show owconomy">
             </a>
         </div>

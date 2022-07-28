@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header p-5 text-white text-center bg-responsive-cover"
-                        :style="'background-image: url(' + balance.background + ')'">
+                        :style="'background-image: url('+balance.background+')'">
                         <h2 class="h1 py-5">{{ balance.title }}</h2>
                         <button class="btn border btn-sm py-1 border-light btn-link btn-edit-header" @click="setComponenetModal('editFormBalance')">
                             <img :src="$root.base_url + '/icons/edit.png'" alt="edit icon">
@@ -41,7 +41,7 @@
                                 <h3 class="h2  text-center">Movimientos del mes <button class="btn border btn-sm py-1 btn-primary" @click="setComponenetModal('createFormMovement')"><img :src="$root.base_url + '/icons/plus.png'" alt="edit icon"></button></h3>
                                 <div v-if="month_data.movements.length">
                                     <activity-item-component v-for="(item, index) in month_data.movements" :key="index"
-                                        :prop_amount="item.amount" :prop_date="item.date" :prop_title="item.title">
+                                        :prop_amount="item.amount" :prop_date="item.date" :prop_title="item.title" @clickButtonShow="setComponenetModal('detailsMovement',item)">
                                     </activity-item-component>
                                     <a href="#" class="btn btn-primary float-end">Ver todos</a>
                                 </div>
@@ -58,6 +58,7 @@
             <div class="modal-body">
                 <balances-form-component @saveData="refreshData" ref="editFormBalance" v-show="modalComponentID == 'editFormBalance'"></balances-form-component>
                 <movements-form-component @saveData="refreshData" ref="createFormMovement" v-show="modalComponentID == 'createFormMovement'"></movements-form-component>
+                <movements-details-component ref="detailsMovement" v-show="modalComponentID == 'detailsMovement'"></movements-details-component>
             </div>
         </modal-component>
     </div>
@@ -102,7 +103,7 @@ export default {
                     console.log(error)
                 })
         },
-        setComponenetModal(component)
+        setComponenetModal(component,data = null)
         {
             this.modalComponentID = component
             switch (component) {
@@ -111,7 +112,7 @@ export default {
                         this.$refs.editFormBalance.balance = {
                             id          : this.balance.id,
                             title       : this.balance.title,
-                            background  : this.balance.background.split('/images/bg-cards/')[1].split('.jpg')[0],
+                            background  : this.balance.background,
                             currency_id : this.balance.currency
                         }
                         /* Modal */
@@ -119,8 +120,15 @@ export default {
                     break;
                 case "createFormMovement":
                         /* Set movement data */
+                        this.$refs.createFormMovement.movement.balance_id = this.balance.id
                         /* Modal */
                         this.modal.title = 'Registrar movimiento'
+                    break;
+                case "detailsMovement":
+                        /* Set movement data */
+                        this.$refs.detailsMovement.movement = data
+                        /* Modal */
+                        this.modal.title = 'Detalles del Movimiento'
                     break;
 
                 default:

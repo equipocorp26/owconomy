@@ -26,9 +26,9 @@
         <div class="row justify-content-center">
             <label>Selecciona el fondo de tu balance</label>
             <div v-for="(item, index) in bg_cards" :key="'background-img-'+index" class="col-6">
-                <div :style="'background-image: url(' + $root.base_url + '/images/bg-cards/' + item + '.jpg)'"
+                <div :style="'background-image: url('+item+')'"
                     class="my-2 preview-background-card bg-responsive-cover">
-                    <input class="m-2" type="radio" v-model="balance.background" :value="item">
+                    <input class="m-2" type="radio" v-model="balance.background" :value="item" required>
                 </div>
             </div>
         </div>
@@ -55,11 +55,11 @@ export default {
             base_url: this.$root.base_api_url,
             /* Data */
             currencies: [],
-            bg_cards: [0, 1, 2, 3, 4, 5],
+            bg_cards: [this.$root.base_url+'/images/bg-cards/'+0+'.jpg', this.$root.base_url+'/images/bg-cards/'+1+'.jpg', this.$root.base_url+'/images/bg-cards/'+2+'.jpg', this.$root.base_url+'/images/bg-cards/'+3+'.jpg', this.$root.base_url+'/images/bg-cards/'+4+'.jpg', this.$root.base_url+'/images/bg-cards/'+5+'.jpg'],
             balance: {
                 id: null,
                 title: '',
-                background: 0,
+                background: this.$root.base_url+'/images/bg-cards/'+0+'.jpg',
                 currency_id: null
             }
         }
@@ -106,7 +106,7 @@ export default {
             this.balance = {
                 id: null,
                 title: '',
-                background: 0,
+                background: this.$root.base_url+'/images/bg-cards/'+0+'.jpg',
                 currency_id: null
             }
         }

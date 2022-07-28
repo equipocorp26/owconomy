@@ -15,6 +15,7 @@ Vue.component('balances-show-component', require('./components/balances/Balances
 Vue.component('balances-form-component', require('./components/balances/BalancesFormComponent.vue').default);
 /* --- Movements --- */
 Vue.component('movements-form-component', require('./components/movements/MovementsFormComponent.vue').default);
+Vue.component('movements-details-component', require('./components/movements/MovementsDetailsComponent.vue').default);
 /* --- Auth --- */
 Vue.component('login-component', require('./components/auth/LoginComponent.vue').default);
 

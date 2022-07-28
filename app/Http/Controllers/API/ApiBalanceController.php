@@ -54,7 +54,7 @@ class ApiBalanceController extends Controller
         $balance = $user->balances()->create([
             'currency_id'   => $currency->id,
             'title'         => $request->balance['title'],
-            'background_url'=> '/images/bg-cards/'.$request->balance['background'].'.jpg',
+            'background_url'=> $request->balance['background'],
         ]);
         /* Return */
         return new ApiBalanceResource($balance);
@@ -75,7 +75,7 @@ class ApiBalanceController extends Controller
         $movements_month = $balance->monthlyMovements(date('m'))->get('amount');
         $balance_month = $movements_month->where('amount','<',0)->sum('amount') + $movements_month->where('amount','>',0)->sum('amount') ;
         /* recordings */
-        $movements_month    = $balance->monthlyMovements(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
+        $movements_month    = $balance->monthlyMovements(date('m'))->orderBy('date','DESC')->limit(5)->get();
         $reservations_month = $balance->monthlyReservations(date('m'))->orderBy('created_at','DESC')->limit(5)->get();
         /* Make the balances' resource */
         return response()->json([
@@ -88,7 +88,7 @@ class ApiBalanceController extends Controller
             ]
         ]);
     }
-    public function update(ApiBalanceRequest $request, $balance)
+    public function update(ApiBalanceRequest $request, $balance_id)
     {
         /* Desencrypt the token */
         try {
@@ -101,11 +101,11 @@ class ApiBalanceController extends Controller
         }
         /* Desencrypt the balance */
         try {
-            $balance = Balance::findOrFail(Crypt::decrypt($request->balance['id']));
+            $balance = Balance::findOrFail(Crypt::decrypt($balance_id));
         } catch (\Throwable $th) {
             return response()->json([
                 'message'   => 'error balance id',
-                'errors'    => ['balance_id' => [$request->balance['id'] ? 'el balance id no es valido' : 'el balance id es requerido']]
+                'errors'    => ['balance_id' => [$balance_id ? 'el balance id no es valido' : 'el balance id es requerido']]
             ],422);
         }
         /* Search Currency*/
@@ -121,7 +121,7 @@ class ApiBalanceController extends Controller
         $balance->update([
             'currency_id'   => $currency->id,
             'title'         => $request->balance['title'],
-            'background_url'=> '/images/bg-cards/'.$request->balance['background'].'.jpg',
+            'background_url'=> $request->balance['background'],
         ]);
         /* Return */
         return new ApiBalanceResource($balance);

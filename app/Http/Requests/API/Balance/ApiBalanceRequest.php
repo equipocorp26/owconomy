@@ -17,10 +17,8 @@ class ApiBalanceRequest extends FormRequest
             'user_id'               => 'required',
             'balance.title'         => 'required|between:3,255',
             'balance.currency_id'   => 'required|exists:currencies,symbol',
+            'balance.background'    => 'required|url',
         ];
-        if ($this->balance['id']) {
-            $validations['balance.id'] = 'required';
-        }
         return $validations;
     }
 }

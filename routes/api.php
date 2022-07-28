@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ApiBalanceController;
 use App\Http\Controllers\API\ApiCurrencyController;
 use App\Http\Controllers\API\ApiLoginController;
+use App\Http\Controllers\API\ApiMovementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,8 @@ Route::get('balances/{balance}',[ApiBalanceController::class,'show']);
 Route::put('balances/{balance}',[ApiBalanceController::class,'update']);
 /* Currency */
 Route::get('currencies',[ApiCurrencyController::class,'index']);
+/* Movements */
+Route::post('movements',[ApiMovementController::class,'store']);
 Route::middleware(['auth'])->group(function () {
 });
 
