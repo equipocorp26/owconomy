@@ -20,15 +20,15 @@
                         </span>
                     </div>
                     <div class="col-6 mt-5">
-                        <a class="btn border btn-sm py-1 border-light btn-link"  title="Movimientos">
-                            <img src="icons/transactions.png" alt="transactions icons owconomy">
+                        <a class="btn border btn-sm py-1 border-light btn-link"  title="Movimientos" :href="$root.base_url+'/balances/'+prop_card_id+'/movements'">
+                            <img :src="$root.base_url+'/icons/transactions.png'" alt="transactions icons owconomy">
                         </a>
                         <a class="btn border btn-sm py-1 border-light btn-link"  title="Reservaciones">
-                            <img src="icons/reservations.png" alt="transactions icons owconomy">
+                            <img :src="$root.base_url+'/icons/reservations.png'" alt="transactions icons owconomy">
                         </a>
                         <a class="btn border btn-sm py-1 border-light btn-link"
                             title="Resumen del balance">
-                            <img src="icons/balance.png" alt="transactions icons owconomy">
+                            <img :src="$root.base_url+'/icons/balance.png'" alt="transactions icons owconomy">
                         </a>
                     </div>
                     <div class="col-6 mt-5 text-end">

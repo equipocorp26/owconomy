@@ -24,7 +24,7 @@
                     @nextPage="getData"></pagination-component>
             </template>
             <div class="card my-4 mx-auto p-4 rounded-medium text-center" v-else>
-                <img width="100px" class="mx-auto" src="images/empty.png" alt="Empty image owconomy">
+                <img width="100px" class="mx-auto" :src="$root.base_url+'/images/empty.png'" alt="Empty image owconomy">
                 <p class="fs-4 mt-3">Ups... Parece que no tienes ningun balance</p>
                 <p class="text-muted">Da click en el boton para crear uno, y llevar el control de tus gastos.</p>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -76,9 +76,6 @@ export default {
                 .catch((error) => {
                     console.log(error)
                 })
-        },
-        setInput(e) {
-            this.balance[e.name] = e.value
         },
         refreshData() {
             this.getData()

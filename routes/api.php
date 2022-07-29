@@ -15,6 +15,7 @@ Route::put('balances/{balance}',[ApiBalanceController::class,'update']);
 /* Currency */
 Route::get('currencies',[ApiCurrencyController::class,'index']);
 /* Movements */
+Route::get('balances/{balance}/movements',[ApiMovementController::class,'index']);
 Route::post('movements',[ApiMovementController::class,'store']);
 Route::middleware(['auth'])->group(function () {
 });

@@ -27,7 +27,6 @@
 export default {
     mounted() {
         console.log("Component Movement Detail")
-        this.getCurrencies()
     },
     data: function () {
         return {

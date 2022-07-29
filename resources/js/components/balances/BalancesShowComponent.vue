@@ -43,7 +43,7 @@
                                     <activity-item-component v-for="(item, index) in month_data.movements" :key="index"
                                         :prop_amount="item.amount" :prop_date="item.date" :prop_title="item.title" @clickButtonShow="setComponenetModal('detailsMovement',item)">
                                     </activity-item-component>
-                                    <a href="#" class="btn btn-primary float-end">Ver todos</a>
+                                    <a  :href="$root.base_url+'/balances/'+balance.id+'/movements'" class="btn btn-primary float-end">Ver todos</a>
                                 </div>
                                 <div v-else>
                                     <p class="h5 text-muted mt-5 text-center">No tienes registros todavia.</p>
@@ -54,11 +54,11 @@
                 </div>
             </div>
         </div>
-        <modal-component :prop_id="modalActionsBalanceId" :prop_title="modal.title">
+        <modal-component :prop_id="modalRefId" :prop_title="modal.title" :ref="modalRefId">
             <div class="modal-body">
-                <balances-form-component @saveData="refreshData" ref="editFormBalance" v-show="modalComponentID == 'editFormBalance'"></balances-form-component>
-                <movements-form-component @saveData="refreshData" ref="createFormMovement" v-show="modalComponentID == 'createFormMovement'"></movements-form-component>
-                <movements-details-component ref="detailsMovement" v-show="modalComponentID == 'detailsMovement'"></movements-details-component>
+                <balances-form-component @saveData="refreshData" ref="editFormBalance" v-show="modalActionId == 'editFormBalance'"></balances-form-component>
+                <movements-form-component @saveData="refreshData" ref="createFormMovement" v-show="modalActionId == 'createFormMovement'"></movements-form-component>
+                <movements-details-component ref="detailsMovement" v-show="modalActionId == 'detailsMovement'"></movements-details-component>
             </div>
         </modal-component>
     </div>
@@ -68,8 +68,6 @@
 export default {
     mounted() {
         console.log("Component Balance Show")
-        /* Create modal instance */
-        new bootstrap.Modal(document.getElementById(this.modalActionsBalanceId),{backdrop:true})
         /* Get data view */
         this.getData()
     },
@@ -78,12 +76,12 @@ export default {
         return {
             /* Constants */
             base_url: this.$root.base_api_url,
-            modalActionsBalanceId: 'modalActionsBalance',
-            modalComponentID:null,
             /* Modal Data */
             modal:{
                 title:null
             },
+            modalRefId: 'modalActionsBalance',
+            modalActionId:'editFormBalance',
             /* Data */
             balance: {},
             month_data: {
@@ -105,7 +103,7 @@ export default {
         },
         setComponenetModal(component,data = null)
         {
-            this.modalComponentID = component
+            this.modalActionId = component
             switch (component) {
                 case "editFormBalance":
                         /* Set balance data */
@@ -135,17 +133,12 @@ export default {
                     break;
             }
             /* Toggle modal */
-            this.toggleModal()
+            this.$refs[this.modalRefId].toggleModal()
         },
         refreshData() {
             this.getData()
-            this.toggleModal()
+            this.$refs[this.modalRefId].toggleModal()
         },
-        toggleModal()
-        {
-            let modal = bootstrap.Modal.getInstance("#"+this.modalActionsBalanceId)
-            modal.toggle()
-        }
     }
 }
 </script>

@@ -24,6 +24,7 @@ export default {
     },
     mounted() {
         console.log("Modal Basic Input")
+        new bootstrap.Modal(document.getElementById(this.prop_id),{backdrop:true})
     },
     data: function () {
         return {
@@ -33,6 +34,11 @@ export default {
     },
     methods:
     {
+        toggleModal()
+        {
+            let modal = bootstrap.Modal.getInstance("#"+this.prop_id)
+            modal.toggle()
+        }
     }
 }
 </script>

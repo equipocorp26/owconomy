@@ -7,11 +7,19 @@ use App\Http\Requests\MovementRequest;
 use App\Models\Balance;
 use App\Models\Movement;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class MovementController extends Controller
 {
-    public function index(MovementFilterRequest $request,Balance $balance)
+    public function index(MovementFilterRequest $request,$balance)
     {
+        /* Desencrypt the token */
+        try {
+            $balance = Balance::findOrFail(Crypt::decrypt($balance));
+        } catch (\Throwable $th) {
+            abort(404);
+        }
+        /* Check if owner */
         $this->authorize('owner',$balance);
         $items = $balance->movements();
         /* FILTRO DE FECHAS */

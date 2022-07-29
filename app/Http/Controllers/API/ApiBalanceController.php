@@ -25,7 +25,7 @@ class ApiBalanceController extends Controller
             return response()->json([
                 'message'   => 'error user id',
                 'errors'    => ['user_id' => [$request->user_id ? 'el user id no es valido' : 'el user id es requerido']]
-            ]);
+            ],422);
         }
         /* Make the balances' resource */
         return ApiBalanceResource::collection(Balance::where('user_id',$user->id)->orderBy('updated_at','DESC')->with('lastMovement')->paginate(9));
