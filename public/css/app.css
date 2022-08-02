@@ -11286,15 +11286,16 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.bg-responsive-cover {
+.bg-responsive {
   background-repeat: no-repeat;
   background-position: 100%;
+}
+
+.bg-responsive-cover {
   background-size: cover;
 }
 
 .bg-responsive-contain {
-  background-repeat: no-repeat;
-  background-position: 100%;
   background-size: contain;
 }
 

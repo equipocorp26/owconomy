@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,31 +19,61 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', serif;
-            font-size: 1rem;
-        }
-
-        .bg-responsive {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat
-        }
-
-        .rounded-medium {
-            border-radius: 10px;
-        }
-
-    </style>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ asset('template/vendor/fonts/boxicons.css') }}" />
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('template/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('template/vendor/css/theme-default.css') }}"
+        class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('template/css/demo.css') }}" />
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('template/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <!-- Helpers -->
+    <script src="{{ asset('template/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('template/js/config.js')}}"></script>
 </head>
 
 <body>
     <script>
-        window.token_user = {!! json_encode( Auth::id() ? Crypt::encrypt( Auth::id() ) : null ) !!}
+        window.token_user = {!! json_encode(Auth::id() ? Crypt::encrypt(Auth::id()) : null) !!}
     </script>
-    <div id="app">
-        @auth
+    <div>
+        <div class="layout-wrapper layout-content-navbar">
+            <div class="layout-container">
+                <!-- Menu -->
+                @include('partials.menu')
+                <!-- / Menu -->
+                <!-- Layout container -->
+                <div class="layout-page">
+                    <!-- Navbar -->
+                    @include('partials.navbar')
+                    <!-- / Navbar -->
+                    <!-- Content wrapper -->
+                    <div class="content-wrapper" id="app">
+                        <!-- Content -->
+                        @yield('content')
+                        <!-- / Content -->
+                        <!-- Footer -->
+                        @include('partials.footer')
+                        <!-- / Footer -->
+                        <div class="content-backdrop fade"></div>
+                    </div>
+                    <!-- Content wrapper -->
+                </div>
+                <!-- / Layout page -->
+            </div>
+
+            <!-- Overlay -->
+            <div class="layout-overlay layout-menu-toggle"></div>
+        </div>
+        <!-- / Layout wrapper -->
+        {{-- @auth
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-5">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -103,8 +133,16 @@
             @yield('content')
         @else
             @yield('content')
-        @endauth
+        @endauth --}}
     </div>
+
+    <script src="{{ asset('template/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('template/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('template/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('template/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('template/vendor/js/menu.js') }}"></script>
+    <!-- Main JS -->
+    <script src="{{ asset('template/js/main.js') }}"></script>
 </body>
 
 </html>
